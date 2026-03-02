@@ -282,6 +282,49 @@ body {
     overflow: hidden;
 }
 
+/* Orbs flutuantes — efeito de profundidade no hero */
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(27, 140, 61, 0.12) 0%, transparent 70%);
+    top: 10%;
+    right: -80px;
+    animation: float-orb 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(34, 169, 74, 0.08) 0%, transparent 70%);
+    bottom: 15%;
+    left: -60px;
+    animation: float-orb 10s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+@keyframes float-orb {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(20px, -30px) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-15px, 15px) scale(0.95);
+    }
+}
+
 /* Sem banner de fundo */
 
 /* Background image support */
@@ -316,7 +359,7 @@ body {
 .hero__logo-placeholder {
     width: 200px;
     height: 60px;
-    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border: none;
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
@@ -332,28 +375,88 @@ body {
     object-fit: contain;
 }
 
-.hero__vsl-wrapper {
+/* VSL Facade — Lazy Load */
+.vsl-facade {
+    position: relative;
     width: 100%;
     max-width: 800px;
     aspect-ratio: 16 / 9;
-    background: rgba(0, 0, 0, 0.4);
-    border: 2px dashed rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.35);
     overflow: hidden;
+    cursor: pointer;
     margin-bottom: var(--space-lg);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+    background: #000;
 }
 
-.hero__vsl-wrapper video,
-.hero__vsl-wrapper iframe {
+.vsl-facade:hover {
+    box-shadow: 0 12px 50px rgba(0, 0, 0, 0.5), 0 0 60px rgba(27, 140, 61, 0.15);
+    transform: scale(1.01);
+}
+
+.vsl-facade__thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.vsl-facade__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 2;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.5));
+}
+
+.vsl-facade:hover .vsl-facade__play {
+    transform: translate(-50%, -50%) scale(1.15);
+    filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.6));
+}
+
+.vsl-facade__play-bg {
+    transition: fill 0.2s ease;
+}
+
+.vsl-facade:hover .vsl-facade__play-bg {
+    fill: #E63946;
+    fill-opacity: 1;
+}
+
+/* VSL iframe carregado */
+.vsl-facade iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     border: none;
     border-radius: var(--radius-lg);
+}
+
+/* Overlay escuro sutil sobre a thumb */
+.vsl-facade::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    transition: background 0.3s ease;
+    border-radius: var(--radius-lg);
+}
+
+.vsl-facade:hover::after {
+    background: rgba(0, 0, 0, 0.08);
 }
 
 .hero__headline {
@@ -417,21 +520,25 @@ body {
 }
 
 .price-old {
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: rgba(255, 255, 255, 0.5);
     text-decoration: line-through;
     font-weight: 400;
+    letter-spacing: 0.5px;
 }
 
 .price-current {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-family: var(--font-heading);
     font-weight: 900;
     color: var(--color-primary-light);
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 15px rgba(34, 169, 74, 0.3);
 }
 
 .price-current--white {
     color: #FFFFFF;
+    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.3);
 }
 
 .price-saving {
@@ -439,8 +546,35 @@ body {
     font-weight: 700;
     color: var(--color-warm);
     background: rgba(255, 140, 66, 0.15);
-    padding: 4px 14px;
+    padding: 6px 18px;
     border-radius: 20px;
+    animation: saving-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes saving-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Formato de preço separado — cifra + valor */
+.price-currency {
+    font-size: 0.6em;
+    font-weight: 700;
+    opacity: 0.85;
+    vertical-align: super;
+    margin-right: 2px;
+}
+
+.price-value {
+    font-size: 1.15em;
+    letter-spacing: -1px;
 }
 
 .hero .trust-line {
@@ -528,27 +662,27 @@ body {
 
 .product__image-placeholder {
     width: 100%;
-    aspect-ratio: 1 / 1;
     max-width: 500px;
     margin: 0 auto;
-    border: 2px dashed var(--color-border);
+    border: none;
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.85rem;
     color: var(--color-text-muted);
-    background: var(--color-bg-alt);
+    background: transparent;
     text-align: center;
-    padding: var(--space-md);
+    padding: 0;
     overflow: hidden;
 }
 
 .product__image-placeholder img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     border-radius: var(--radius-lg);
+    display: block;
 }
 
 .product__info h2 {
@@ -629,12 +763,33 @@ body {
     text-align: center;
     transition: all var(--transition-base);
     backdrop-filter: blur(10px);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .tech-card:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: translateY(-5px);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(34, 169, 74, 0.3);
+}
+
+/* Linha brilhante no topo do card ao hover */
+.tech-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-primary-light), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.tech-card:hover::before {
+    opacity: 1;
 }
 
 .tech-card__icon {
@@ -690,6 +845,7 @@ body {
     border: 1px solid var(--color-border);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .benefit-card::before {
@@ -752,8 +908,7 @@ body {
 }
 
 .gallery-item {
-    aspect-ratio: 1 / 1;
-    border: 2px dashed var(--color-border);
+    border: 2px solid rgba(0, 0, 0, 0.06);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
@@ -764,15 +919,16 @@ body {
     cursor: pointer;
     transition: all var(--transition-base);
     text-align: center;
-    padding: var(--space-sm);
+    padding: 0;
     overflow: hidden;
 }
 
 .gallery-item img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     border-radius: calc(var(--radius-md) - 2px);
+    display: block;
 }
 
 .gallery-item:hover {
@@ -1054,7 +1210,7 @@ body {
 }
 
 .demo-video-wrapper {
-    max-width: 560px;
+    max-width: 800px;
     margin: 0 auto;
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -1062,8 +1218,7 @@ body {
 
 .demo-video-placeholder {
     width: 100%;
-    aspect-ratio: 9 / 16;
-    max-height: 700px;
+    aspect-ratio: 16 / 9;
     background: #1A1A2E;
     border: 2px dashed rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-lg);
@@ -1159,10 +1314,24 @@ body {
     border-color: var(--color-primary-light);
     transform: scale(1.03);
     box-shadow: 0 0 50px rgba(27, 140, 61, 0.2);
+    animation: featured-float 4s ease-in-out infinite;
+}
+
+@keyframes featured-float {
+
+    0%,
+    100% {
+        transform: scale(1.03) translateY(0);
+    }
+
+    50% {
+        transform: scale(1.03) translateY(-6px);
+    }
 }
 
 .pricing-card--featured:hover {
     transform: scale(1.03) translateY(-5px);
+    animation: none;
 }
 
 .pricing-card__badge {
@@ -1179,6 +1348,30 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Shimmer brilhante no badge */
+.pricing-card__badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: badge-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes badge-shimmer {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
 }
 
 .pricing-card h3 {
@@ -1202,6 +1395,19 @@ body {
     padding: 16px 20px;
 }
 
+.pricing-card__cod {
+    display: block;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: var(--space-sm);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.pricing-card--featured .pricing-card__cod {
+    color: rgba(255, 255, 255, 0.7);
+}
+
 /* Preços nos Cards */
 .pricing-card__prices {
     display: flex;
@@ -1216,34 +1422,38 @@ body {
 }
 
 .pricing-card__old-price {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: rgba(255, 255, 255, 0.45);
     text-decoration: line-through;
     font-weight: 400;
+    letter-spacing: 0.5px;
 }
 
 .pricing-card__new-price {
-    font-size: 2rem;
+    font-size: 2.3rem;
     font-family: var(--font-heading);
     font-weight: 900;
     color: var(--color-primary-light);
     line-height: 1.1;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 15px rgba(34, 169, 74, 0.3);
 }
 
 .pricing-card__saving {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 700;
     color: var(--color-warm);
-    background: rgba(255, 140, 66, 0.15);
-    padding: 3px 12px;
+    background: rgba(255, 140, 66, 0.2);
+    padding: 4px 14px;
     border-radius: 14px;
     margin-top: 2px;
+    animation: saving-pulse 2.5s ease-in-out infinite;
 }
 
 .pricing-card--featured .pricing-card__new-price {
-    font-size: 2.2rem;
+    font-size: 2.6rem;
     color: #FFFFFF;
-    text-shadow: 0 0 20px rgba(27, 140, 61, 0.4);
+    text-shadow: 0 0 25px rgba(34, 169, 74, 0.5), 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* ========================================
@@ -1283,6 +1493,19 @@ body {
     text-align: center;
     padding: var(--space-md);
     overflow: hidden;
+    animation: seal-glow 3s ease-in-out infinite;
+}
+
+@keyframes seal-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(37, 99, 235, 0.1);
+    }
+
+    50% {
+        box-shadow: 0 0 35px rgba(37, 99, 235, 0.25), 0 0 60px rgba(37, 99, 235, 0.1);
+    }
 }
 
 .guarantee__seal-placeholder img {
@@ -1444,21 +1667,25 @@ body {
 }
 
 .final-cta-section .cta-btn {
-    background: #FFFFFF;
-    color: var(--color-primary-dark);
-    font-size: 1.2rem;
-    padding: 20px 44px;
-    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #0F2027, #1A1A2E, #16213E);
+    color: #FFFFFF;
+    font-size: 1.25rem;
+    padding: 22px 48px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(27, 140, 61, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(34, 169, 74, 0.4);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
 }
 
 .final-cta-section .cta-btn:hover {
-    background: #F0F0F0;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #1A1A2E, #16213E, #0F2027);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 45px rgba(0, 0, 0, 0.4), 0 0 60px rgba(27, 140, 61, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    border-color: rgba(34, 169, 74, 0.7);
 }
 
 .final-cta-section .cta-btn::before {
-    background: linear-gradient(90deg, transparent, rgba(27, 140, 61, 0.15), transparent);
+    background: linear-gradient(90deg, transparent, rgba(34, 169, 74, 0.25), transparent);
 }
 
 /* Preço no CTA Final */
@@ -1466,17 +1693,31 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     margin-bottom: var(--space-xl);
+    padding: var(--space-lg) var(--space-xl);
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
 }
 
 .final-cta-section .price-old {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 1.1rem;
+}
+
+.final-cta-section .price-current {
+    font-size: 2.6rem;
+    color: #FFFFFF;
+    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.3);
 }
 
 .final-cta-section .price-saving {
     color: #FFFFFF;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.95rem;
+    padding: 6px 20px;
 }
 
 /* ========================================
@@ -1986,23 +2227,480 @@ body {
     transform: translateY(0);
 }
 
+/* Stagger delays — elementos em grid aparecem em sequência */
+.benefits-grid .reveal:nth-child(2),
+.tech-grid .reveal:nth-child(2),
+.pricing-grid .reveal:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.benefits-grid .reveal:nth-child(3),
+.tech-grid .reveal:nth-child(3),
+.pricing-grid .reveal:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+.benefits-grid .reveal:nth-child(4) {
+    transition-delay: 0.3s;
+}
+
+.benefits-grid .reveal:nth-child(5) {
+    transition-delay: 0.4s;
+}
+
+.benefits-grid .reveal:nth-child(6) {
+    transition-delay: 0.5s;
+}
+
+.pain-list .reveal:nth-child(2) {
+    transition-delay: 0.08s;
+}
+
+.pain-list .reveal:nth-child(3) {
+    transition-delay: 0.16s;
+}
+
+.pain-list .reveal:nth-child(4) {
+    transition-delay: 0.24s;
+}
+
+.pain-list .reveal:nth-child(5) {
+    transition-delay: 0.32s;
+}
+
+.pain-list .reveal:nth-child(6) {
+    transition-delay: 0.4s;
+}
+
+/* Acessibilidade: respeitar preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .cta-btn--pulse {
+        animation: none;
+    }
+
+    .chatbot-float::after {
+        animation: none;
+    }
+
+    .final-cta-section::before {
+        animation: none;
+    }
+
+    .price-saving {
+        animation: none;
+    }
+
+    .pricing-card--featured {
+        animation: none;
+    }
+
+    .guarantee__seal-placeholder {
+        animation: none;
+    }
+
+    .pricing-card__badge::after {
+        animation: none;
+    }
+
+    .hero::before,
+    .hero::after {
+        animation: none;
+    }
+}
+
+/* ========================================
+   CRO — Barra de Progresso de Leitura
+   ======================================== */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light), var(--color-warm));
+    z-index: 9999;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px var(--color-primary-glow);
+}
+
+/* ========================================
+   CRO — Contador de Urgência
+   ======================================== */
+.urgency-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: 10px 20px;
+    background: rgba(230, 57, 70, 0.08);
+    border: 1px solid rgba(230, 57, 70, 0.15);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-top: var(--space-md);
+    animation: urgency-pulse 2s ease-in-out infinite;
+}
+
+.urgency-counter--dark {
+    background: rgba(230, 57, 70, 0.12);
+    border-color: rgba(230, 57, 70, 0.25);
+    color: #FF6B6B;
+}
+
+.urgency-counter__dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    animation: dot-blink 1.5s ease-in-out infinite;
+}
+
+.urgency-counter--dark .urgency-counter__dot {
+    background: #FF6B6B;
+}
+
+@keyframes urgency-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.85;
+    }
+}
+
+@keyframes dot-blink {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.7);
+    }
+}
+
+/* ========================================
+   CRO — Micro-copy sob CTAs
+   ======================================== */
+.cta-microcopy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-sm);
+    font-weight: 500;
+}
+
+.cta-microcopy--light {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.cta-microcopy svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   CRO — Social Proof Live (Pessoas Comprando)
+   ======================================== */
+.social-proof-live {
+    position: fixed;
+    bottom: 100px;
+    left: 24px;
+    z-index: 998;
+    background: #FFFFFF;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 300px;
+    font-size: 0.82rem;
+    color: var(--color-text);
+    transform: translateX(-120%);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+.social-proof-live.show {
+    transform: translateX(0);
+}
+
+.social-proof-live__icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.social-proof-live__icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.social-proof-live__text strong {
+    color: var(--color-primary-dark);
+}
+
+.social-proof-live__time {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    display: block;
+    margin-top: 2px;
+}
+
+/* ========================================
+   CRO — Trust Badges Visuais (Hero)
+   ======================================== */
+.trust-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-md);
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+    transition: all var(--transition-base);
+}
+
+.trust-badge:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.trust-badge__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.trust-badge__icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ========================================
+   CRO — Sticky CTA Mobile
+   ======================================== */
+.sticky-cta-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sticky-cta-mobile {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 997;
+        background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+        padding: 12px 16px;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .sticky-cta-mobile.visible {
+        transform: translateY(0);
+    }
+
+    .sticky-cta-mobile__price {
+        font-family: var(--font-heading);
+        font-weight: 900;
+        color: #FFFFFF;
+        font-size: 1.1rem;
+        line-height: 1.2;
+    }
+
+    .sticky-cta-mobile__price small {
+        display: block;
+        font-size: 0.65rem;
+        font-weight: 400;
+        opacity: 0.7;
+        text-decoration: line-through;
+    }
+
+    .sticky-cta-mobile__btn {
+        background: #FFFFFF;
+        color: var(--color-primary-dark);
+        font-family: var(--font-heading);
+        font-weight: 800;
+        font-size: 0.85rem;
+        padding: 10px 20px;
+        border: none;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+        transition: all var(--transition-fast);
+    }
+
+    .sticky-cta-mobile__btn:hover {
+        background: #F0F0F0;
+    }
+
+    /* Ajustar chatbot para não sobrepor */
+    .chatbot-float {
+        bottom: 72px;
+    }
+
+    /* Ajustar social proof para não sobrepor */
+    .social-proof-live {
+        bottom: 80px;
+        left: 12px;
+        max-width: 260px;
+    }
+
+    body {
+        padding-bottom: 60px;
+    }
+}
+
 /* ========================================
    Media Queries — Ajustes Adicionais
    ======================================== */
+
+/* Scroll suave para âncoras */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Grid de vídeo single — centralizar */
+.video-testimonials-grid--single {
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.video-testimonials-grid--single .video-player-placeholder {
+    width: 100%;
+}
+
 @media (max-width: 480px) {
     .hero__headline {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
+        line-height: 1.25;
     }
 
+    .hero__subheadline {
+        font-size: 0.9rem;
+    }
+
+    .hero__bullets li {
+        font-size: 0.9rem;
+    }
+
+    /* Botões CTA — largura total no mobile */
     .cta-btn {
-        font-size: 1rem;
-        padding: 16px 24px;
+        font-size: 0.95rem;
+        padding: 16px 20px;
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+        box-sizing: border-box;
     }
 
+    /* Preço no hero — ajustar tamanho */
+    .price-current {
+        font-size: 1.7rem;
+    }
+
+    .price-old {
+        font-size: 0.9rem;
+    }
+
+    .price-saving {
+        font-size: 0.8rem;
+        padding: 5px 14px;
+    }
+
+    /* Trust line — empilhar no mobile */
+    .trust-line {
+        flex-direction: column;
+        gap: 6px;
+        align-items: center;
+    }
+
+    .trust-line span {
+        font-size: 0.82rem;
+    }
+
+    /* Pricing cards */
     .pricing-card {
-        padding: var(--space-xl) var(--space-lg);
+        padding: var(--space-lg) var(--space-md);
     }
 
+    .pricing-card h3 {
+        font-size: 1.05rem;
+    }
+
+    .pricing-card__new-price {
+        font-size: 1.8rem !important;
+    }
+
+    .pricing-card__old-price {
+        font-size: 0.85rem;
+    }
+
+    /* Pricing card button — largura total */
+    .pricing-card .cta-btn {
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 0.9rem;
+    }
+
+    /* Urgency counter — menor no mobile */
+    .urgency-counter {
+        font-size: 0.8rem;
+        padding: 8px 14px;
+    }
+
+    /* VSL facade — menor sombra no mobile */
+    .vsl-facade {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Chatbot ajustes */
     .chatbot-float {
         width: 54px;
         height: 54px;
@@ -2030,6 +2728,81 @@ body {
         font-size: 0.7rem;
         padding: 4px 10px;
     }
+
+    /* Final CTA section */
+    .final-cta-section h2 {
+        font-size: 1.25rem;
+        line-height: 1.3;
+    }
+
+    .final-cta-section p {
+        font-size: 0.88rem;
+        line-height: 1.6;
+    }
+
+    .final-cta-section .cta-btn {
+        font-size: 0.95rem;
+        padding: 16px 20px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .final-cta__price {
+        padding: var(--space-md);
+    }
+
+    .final-cta-section .price-current {
+        font-size: 1.6rem;
+    }
+
+    .final-cta-section .price-old {
+        font-size: 0.85rem;
+    }
+
+    .final-cta-section .price-saving {
+        font-size: 0.78rem;
+        padding: 5px 12px;
+    }
+
+    .cta-microcopy {
+        font-size: 0.75rem;
+    }
+
+    .cta-microcopy svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* FAQ section */
+    .faq__question {
+        font-size: 0.95rem;
+        padding: 14px 16px;
+    }
+
+    .faq__answer {
+        font-size: 0.88rem;
+        padding: 12px 16px;
+    }
+
+    /* Section titles */
+    .section-title {
+        font-size: 1.3rem;
+    }
+
+    /* Sticky CTA mobile — ajustar com chatbot */
+    .sticky-cta-mobile {
+        padding: 10px 14px;
+    }
+
+    .sticky-cta-mobile__price {
+        font-size: 1rem;
+    }
+
+    .sticky-cta-mobile__btn {
+        font-size: 0.8rem;
+        padding: 9px 16px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -2054,4 +2827,226 @@ body {
     .pricing-card--featured:hover {
         transform: translateY(-5px);
     }
+
+    /* Pricing grid — stack vertical */
+    .pricing-grid {
+        gap: var(--space-lg);
+    }
+
+    /* Hero CTA area — ajustar espaçamento */
+    .hero__cta-area {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    /* Botões com largura consistente */
+    .hero__cta-area .cta-btn {
+        width: 100%;
+    }
+
+    /* Video testimonial — largura total */
+    .video-testimonials-grid--single {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 769px) {
+
+    /* Desktop — botões com tamanho adequado */
+    .pricing-card .cta-btn {
+        width: 100%;
+    }
+
+    .hero__cta-area .cta-btn {
+        min-width: 380px;
+    }
+}
+
+/* ─── Trust Line (Frete | Pagamento | Garantia) ─── */
+.trust-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.trust-sep {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.9rem;
+    line-height: 1;
+    user-select: none;
+}
+
+/* Separador via CSS — só aparece no desktop */
+@media (min-width: 769px) {
+    .trust-item:not(:last-child)::after {
+        content: '|';
+        margin-left: 8px;
+        color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+@media (max-width: 768px) {
+    .trust-sep {
+        display: none;
+    }
+
+    .trust-line {
+        flex-direction: column;
+        gap: 6px;
+        font-size: 0.88rem;
+    }
+}
+
+/* ─── Stats Bar ─── */
+.stats-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    background: linear-gradient(135deg, #f0faf4, #e6f7ec);
+    border: 1px solid rgba(27, 168, 61, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 24px 32px;
+    margin: 0 auto var(--space-xl);
+    max-width: 720px;
+}
+
+.stats-bar__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+}
+
+.stats-bar__item strong {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1;
+}
+
+.stats-bar__item span {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.stats-bar__divider {
+    width: 1px;
+    height: 48px;
+    background: rgba(27, 168, 61, 0.2);
+    margin: 0 16px;
+}
+
+/* ─── Comparison Grid ─── */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.comparison-col {
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg) var(--space-md);
+}
+
+.comparison-col--bad {
+    background: #fff5f5;
+    border: 2px solid #fecaca;
+}
+
+.comparison-col--good {
+    background: #f0faf4;
+    border: 2px solid rgba(27, 168, 61, 0.3);
+}
+
+.comparison-col h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    text-align: center;
+}
+
+.comparison-col--bad h3 {
+    color: #dc2626;
+}
+
+.comparison-col--good h3 {
+    color: var(--color-primary);
+}
+
+.comparison-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comparison-col ul li {
+    font-size: 0.88rem;
+    color: var(--color-text);
+    line-height: 1.4;
+    padding-left: 20px;
+    position: relative;
+}
+
+.comparison-col--bad ul li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: #dc2626;
+    font-weight: 700;
+}
+
+.comparison-col--good ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+@media (max-width: 600px) {
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-bar {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+    }
+
+    .stats-bar__divider {
+        width: 48px;
+        height: 1px;
+        margin: 0;
+    }
+}
+
+/* ─── Best Value Badge (Kit 2) ─── */
+.pricing-card__best-value {
+    display: inline-block;
+    background: rgba(27, 168, 61, 0.12);
+    color: var(--color-primary);
+    border: 1px solid rgba(27, 168, 61, 0.3);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
 }

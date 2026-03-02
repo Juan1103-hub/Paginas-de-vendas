@@ -2,8 +2,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Página de vendas no Chrome",
-            "type": "pwa-chrome",
+            "name": "Abrir arquivo no Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "file": "${file}",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Página via Live Server (Chrome)",
+            "type": "chrome",
             "request": "launch",
             "url": "http://127.0.0.1:5500/joelheira-premium/index.html",
             "webRoot": "${workspaceFolder}"
