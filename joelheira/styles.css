@@ -1530,6 +1530,7 @@ body {
 .guarantee__badges {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-md) var(--space-xl);
     margin-top: var(--space-lg);
     font-weight: 600;
