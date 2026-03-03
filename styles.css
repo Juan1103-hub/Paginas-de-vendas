@@ -465,6 +465,7 @@ body {
     font-weight: 900;
     max-width: 800px;
     line-height: 1.15;
+    text-wrap: balance;
 }
 
 .hero__headline .highlight {
@@ -477,6 +478,7 @@ body {
     max-width: 650px;
     font-weight: 400;
     line-height: 1.5;
+    text-wrap: pretty;
 }
 
 .hero__bullets {
@@ -612,6 +614,7 @@ body {
     color: var(--color-text);
     transition: all var(--transition-base);
     border-left: 4px solid var(--color-accent);
+    text-wrap: pretty;
 }
 
 .pain-list__item:hover {
@@ -2633,6 +2636,10 @@ html {
 
     .hero__bullets li {
         font-size: 0.9rem;
+    }
+
+    .hero__inner {
+        padding: var(--space-xl) 0;
     }
 
     /* Botões CTA — largura total no mobile */
