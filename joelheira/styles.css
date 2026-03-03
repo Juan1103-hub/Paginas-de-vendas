@@ -1518,6 +1518,7 @@ body {
     font-size: clamp(1.3rem, 3vw, 1.75rem);
     color: var(--color-guarantee);
     margin-bottom: var(--space-lg);
+    text-wrap: balance;
 }
 
 .guarantee__content p {
@@ -1525,14 +1526,17 @@ body {
     color: var(--color-text-light);
     line-height: 1.7;
     margin-bottom: var(--space-md);
+    text-wrap: pretty;
 }
 
 .guarantee__badges {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: var(--space-md) var(--space-xl);
-    margin-top: var(--space-lg);
+    align-items: center;
+    text-align: center;
+    gap: var(--space-md) var(--space-lg);
+    margin-top: var(--space-xl);
     font-weight: 600;
     color: var(--color-guarantee);
     font-size: 1rem;
