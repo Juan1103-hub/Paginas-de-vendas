@@ -310,7 +310,93 @@
   </section>
 
   <!-- ============================
-       SEÇÃO — Comparação VS
+       SEÇÃO 7 — Vídeo Demonstração
+       ============================ -->
+  <section class="demo-section section-padding" id="demo-section">
+    <div class="container">
+      <h2 class="section-title reveal">Veja como é fácil utilizar na prática</h2>
+
+      <div class="demo-video-wrapper reveal">
+        <div class="vsl-facade" id="demo-video" onclick="loadDemo(this)">
+          <img src="https://picsum.photos/seed/brush-demo/800/450" alt="Veja como funciona a Escova Alisadora"
+            class="vsl-facade__thumb" loading="lazy">
+          <button class="vsl-facade__play" aria-label="Reproduzir demonstração">
+            <svg viewBox="0 0 68 48" width="68" height="48">
+              <path class="vsl-facade__play-bg"
+                d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                fill="#212121" fill-opacity="0.85" />
+              <path d="M45 24L27 14v20" fill="#fff" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SEÇÃO 8 — Galeria
+       ============================ -->
+  <section class="gallery-section section-padding" id="gallery-section">
+    <div class="container">
+      <h2 class="section-title reveal">Depoimentos de clientes por mensagens</h2>
+
+      <div class="gallery-grid">
+        <div class="gallery-item reveal" id="gallery-1" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/brush-detalhe1/400/400" alt="Detalhe 1 - Escova Alisadora"
+            loading="lazy">
+        </div>
+        <div class="gallery-item reveal" id="gallery-2" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/brush-detalhe2/400/400" alt="Detalhe 2 - Escova Alisadora"
+            loading="lazy">
+        </div>
+        <div class="gallery-item reveal" id="gallery-3" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/brush-detalhe3/400/400" alt="Detalhe 3 - Escova Alisadora"
+            loading="lazy">
+        </div>
+        <div class="gallery-item reveal" id="gallery-4" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/brush-detalhe4/400/400" alt="Detalhe 4 - Escova Alisadora"
+            loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+      <button class="lightbox__close" aria-label="Fechar">&times;</button>
+      <img id="lightbox-img" src="" alt="Ampliação">
+    </div>
+  </section>
+
+
+
+  <!-- ============================
+       SEÇÃO 9 — Depoimentos em Vídeo
+       ============================ -->
+  <section class="video-testimonials-section section-padding" id="video-testimonials-section">
+    <div class="container">
+      <h2 class="section-title reveal">Assista o que estão falando</h2>
+
+      <div class="video-testimonials-grid video-testimonials-grid--single">
+        <div class="vsl-facade reveal" id="video-testimonial-1" onclick="loadDepoimento(this)">
+          <img src="https://picsum.photos/seed/brush-depoimento/800/450"
+            alt="Depoimento de cliente sobre a Escova Alisadora" class="vsl-facade__thumb" loading="lazy">
+          <button class="vsl-facade__play" aria-label="Reproduzir depoimento">
+            <svg viewBox="0 0 68 48" width="68" height="48">
+              <path class="vsl-facade__play-bg"
+                d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                fill="#212121" fill-opacity="0.85" />
+              <path d="M45 24L27 14v20" fill="#fff" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ============================
+       SEÇÃO 10 — Comparação VS
        ============================ -->
   <section class="comparison-section section-padding" id="comparison-section">
     <div class="container">
@@ -357,7 +443,7 @@
   </section>
 
   <!-- ============================
-       SEÇÃO 12 — Kits e Oferta (3 Planos)
+       SEÇÃO 11 — Kits e Oferta (3 Planos)
        ============================ -->
   <section class="pricing-section section-padding" id="pricing-section">
     <div class="container">
@@ -424,7 +510,7 @@
   </section>
 
   <!-- ============================
-       SEÇÃO 13 — Garantia
+       SEÇÃO 12 — Garantia
        ============================ -->
   <section class="guarantee-section section-padding" id="guarantee-section">
     <div class="container">
@@ -457,7 +543,7 @@
   </section>
 
   <!-- ============================
-       SEÇÃO 14 — FAQ (Accordion)
+       SEÇÃO 13 — FAQ (Accordion)
        ============================ -->
   <section class="faq-section section-padding" id="faq-section">
     <div class="container">
@@ -534,7 +620,7 @@
   </section>
 
   <!-- ============================
-       SEÇÃO 15 — CTA Final
+       SEÇÃO 14 — CTA Final
        ============================ -->
   <section class="final-cta-section section-padding" id="final-cta">
     <div class="container">
@@ -568,7 +654,7 @@
   </section>
 
   <!-- ============================
-       SEÇÃO 16 — Rodapé
+       SEÇÃO 15 — Rodapé
        ============================ -->
   <footer class="footer" id="footer">
     <div class="container">
@@ -645,7 +731,7 @@
   </div>
 
   <!-- ============================
-       JavaScript
+       JavaScript (Do template da Joelheira)
        ============================ -->
   <script>
     // ─── FAQ Accordion ───
@@ -653,58 +739,90 @@
       const item = btn.closest('.faq-item');
       const isActive = item.classList.contains('active');
 
+      // Close all
       document.querySelectorAll('.faq-item.active').forEach(el => {
         el.classList.remove('active');
         el.querySelector('.faq-item__question').setAttribute('aria-expanded', 'false');
       });
 
+      // Toggle current
       if (!isActive) {
         item.classList.add('active');
         btn.setAttribute('aria-expanded', 'true');
       }
     }
 
-    // ─── Progress Bar ───
-    window.addEventListener('scroll', () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      document.getElementById('scroll-progress').style.width = scrolled + '%';
+    // ─── Lightbox ───
+    function openLightbox(el) {
+      const img = el.querySelector('img');
+      if (!img) return;
+
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event) {
+      if (event.target === event.currentTarget || event.target.closest('.lightbox__close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        const lightbox = document.getElementById('lightbox');
+        if (lightbox) {
+          lightbox.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      }
     });
 
-    // ─── Reveal Animations ───
-    const revealElements = document.querySelectorAll('.reveal');
-    const revealOptions = {
-      threshold: 0.15,
-      rootMargin: "0px 0px -50px 0px"
-    };
-    const revealObserver = new IntersectionObserver((entries, observer) => {
+    // ─── Scroll Reveal Animations ───
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('active');
-        observer.unobserve(entry.target);
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible', 'active'); // Added 'active' just in case legacy CSS requires it
+        }
       });
-    }, revealOptions);
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
 
-    revealElements.forEach(el => {
+    document.querySelectorAll('.reveal').forEach(el => {
       revealObserver.observe(el);
     });
 
-    // ─── Fake Viewers Counter ───
-    const viewersElem = document.getElementById('hero-viewers');
-    if (viewersElem) {
-      setInterval(() => {
-        const add = Math.random() > 0.5 ? 1 : -1;
-        let current = parseInt(viewersElem.innerText);
-        if (isNaN(current)) current = 47;
-        current += add;
-        if (current < 25) current = 25;
-        if (current > 85) current = 85;
-        viewersElem.innerText = current + " pessoas estão vendo esta oferta agora";
-      }, 6000);
-    }
+    // ─── Smooth scroll for anchor links ───
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
 
-    // ─── Assistente Virtual (Novo) ───
+    // ─── Contador dinâmico de visitantes ───
+    function updateViewers() {
+      const el = document.getElementById('hero-viewers');
+      if (el) {
+        const n = Math.floor(Math.random() * (59 - 32) + 32);
+        el.innerText = n + ' pessoas est\u00e3o vendo este produto agora';
+      }
+    }
+    updateViewers();
+    setInterval(updateViewers, 5000);
+
+    // ═══════════════════════════════════════════════════
+    //  ASSISTENTE VIRTUAL — CHATBOT (NOVO DA ESCOVA)
+    // ═══════════════════════════════════════════════════
     const chatbotState = {
       isOpen: false,
       hasGreeted: false,
@@ -712,12 +830,12 @@
     };
 
     const UI = {
-      window: document.getElementById('chatbot-window'),
-      badge: document.getElementById('chatbot-badge'),
-      toggleIcon: document.getElementById('chatbot-icon'),
-      messages: document.getElementById('chatbot-messages'),
-      input: document.getElementById('chatbot-input'),
-      suggestions: document.getElementById('chatbot-suggestions')
+      get window() { return document.getElementById('chatbot-window') },
+      get badge() { return document.getElementById('chatbot-badge') },
+      get toggleIcon() { return document.getElementById('chatbot-icon') },
+      get messages() { return document.getElementById('chatbot-messages') },
+      get input() { return document.getElementById('chatbot-input') },
+      get suggestions() { return document.getElementById('chatbot-suggestions') }
     };
 
     const KB = [
@@ -733,10 +851,12 @@
 
       if (chatbotState.isOpen) {
         UI.window.classList.add('active');
-        UI.badge.style.display = 'none';
+        if (UI.badge) UI.badge.style.display = 'none';
 
         // Switch icon to close
-        UI.toggleIcon.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="white"/></svg>';
+        if (UI.toggleIcon) {
+          UI.toggleIcon.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="white"/></svg>';
+        }
 
         if (!chatbotState.hasGreeted) {
           chatbotState.hasGreeted = true;
@@ -749,12 +869,14 @@
       } else {
         UI.window.classList.remove('active');
         // Switch back to chat icon
-        UI.toggleIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        if (UI.toggleIcon) {
+          UI.toggleIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C6.48 2 2 6.04 2 11c0 2.59 1.2 4.93 3.09 6.55L4 22l4.34-1.55C9.5 20.82 10.73 21 12 21c5.52 0 10-4.04 10-9S17.52 2 12 2z" fill="white" />
                     <circle cx="8" cy="11" r="1.2" fill="#D81B60" />
                     <circle cx="12" cy="11" r="1.2" fill="#D81B60" />
                     <circle cx="16" cy="11" r="1.2" fill="#D81B60" />
-                </svg>`;
+                    </svg>`;
+        }
       }
     }
 
@@ -793,7 +915,7 @@
     }
 
     function scrollToBottom() {
-      UI.messages.scrollTop = UI.messages.scrollHeight;
+      if (UI.messages) UI.messages.scrollTop = UI.messages.scrollHeight;
     }
 
     function getBotResponse(input) {
@@ -809,14 +931,11 @@
     function processUserInput(text) {
       if (!text.trim()) return;
 
-      // UI.suggestions.style.display = 'none'; // hide generic options
-
       appendMessage(text, 'user');
-      UI.input.value = '';
+      if (UI.input) UI.input.value = '';
 
       showTyping();
 
-      // Fake delay
       const delay = Math.random() * 1000 + 800; // 800-1800ms
       clearTimeout(chatbotState.typingTimer);
       chatbotState.typingTimer = setTimeout(() => {
@@ -827,7 +946,7 @@
     }
 
     function sendMessage() {
-      processUserInput(UI.input.value);
+      if (UI.input) processUserInput(UI.input.value);
     }
 
     function sendSuggestion(text) {
@@ -837,15 +956,91 @@
       processUserInput(text);
     }
 
-    // Auto-open chatbot badge slightly after load
     setTimeout(() => {
-      if (!chatbotState.isOpen) {
+      if (!chatbotState.isOpen && UI.badge) {
         UI.badge.style.display = 'flex';
         UI.badge.style.animation = 'pulse-glow 2s infinite';
       }
     }, 5000);
 
+
+    // ═══════════════════════════════════════════════════
+    //  VSLs — Lazy Load Facade
+    // ═══════════════════════════════════════════════════
+    function loadVSL(container) {
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/rIxBw_inwuM?autoplay=1&rel=0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      container.innerHTML = '';
+      container.appendChild(iframe);
+      container.style.cursor = 'default';
+    }
+
+    function loadDepoimento(container) {
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/lYjCuQ48pvM?autoplay=1&rel=0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      container.innerHTML = '';
+      container.appendChild(iframe);
+      container.style.cursor = 'default';
+    }
+
+    function loadDemo(container) {
+      const iframe = document.createElement('iframe');
+      // Como não temos a URL específica, uso um genérico ou a do VSL. Aqui mantemos estrutura.
+      iframe.src = 'https://www.youtube.com/embed/rIxBw_inwuM?autoplay=1&rel=0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      container.innerHTML = '';
+      container.appendChild(iframe);
+      container.style.cursor = 'default';
+    }
+
+
+    // ═══════════════════════════════════════════════════
+    //  CRO — Sticky CTA Mobile
+    // ═══════════════════════════════════════════════════
+    const stickyCta = document.getElementById('sticky-cta-mobile');
+    if (stickyCta) {
+      window.addEventListener('scroll', function () {
+        const heroBottom = document.getElementById('hero') ?
+          document.getElementById('hero').getBoundingClientRect().bottom : 0;
+        if (heroBottom < -100) {
+          stickyCta.classList.add('visible');
+        } else {
+          stickyCta.classList.remove('visible');
+        }
+      }, { passive: true });
+    }
+
+    // ═══════════════════════════════════════════════════
+    //  CRO — Barra de Progresso de Leitura Baseada em Scroll
+    // ═══════════════════════════════════════════════════
+    window.addEventListener('scroll', function () {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      const sp = document.getElementById('scroll-progress');
+      if (sp) sp.style.width = progress + '%';
+    }, { passive: true });
+
   </script>
+
+  <!-- Sticky CTA Mobile -->
+  <div class="sticky-cta-mobile" id="sticky-cta-mobile">
+    <div class="sticky-cta-mobile__price">
+      <small>De R$ 197,00</small>
+      R$ 97,00
+    </div>
+    <a href="#pricing-section" class="sticky-cta-mobile__btn">
+      VER OFERTAS →
+    </a>
+  </div>
+
+
+
 </body>
 
 </html>
