@@ -3063,3 +3063,109 @@ html {
     margin-bottom: 6px;
     letter-spacing: 0.3px;
 }
+
+/* ========================================
+   SCROLL REVEAL ANIMATIONS
+   ======================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible,
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered delays for grid children */
+.reveal:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.reveal:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+.reveal:nth-child(4) {
+    transition-delay: 0.3s;
+}
+
+.reveal:nth-child(5) {
+    transition-delay: 0.4s;
+}
+
+.reveal:nth-child(6) {
+    transition-delay: 0.5s;
+}
+
+/* ─── Scroll Progress Bar ─── */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+    z-index: 9999;
+    transition: width 0.1s linear;
+}
+
+/* ─── CTA Microcopy ─── */
+.cta-microcopy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-top: var(--space-sm);
+}
+
+.cta-microcopy svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.cta-microcopy--light {
+    color: rgba(90, 90, 90, 0.85);
+}
+
+/* ─── Urgency Counter ─── */
+.urgency-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-top: var(--space-md);
+    font-weight: 500;
+}
+
+.urgency-counter__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: dot-blink 1.5s infinite;
+}
+
+@keyframes dot-blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.urgency-counter--dark {
+    color: var(--color-text-muted);
+}
